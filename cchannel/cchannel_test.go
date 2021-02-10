@@ -1,7 +1,6 @@
 package cchannel
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -22,7 +21,6 @@ func TestCchannel(t *testing.T) {
 
 	for {
 		if val, valid := cchan.Get(); valid {
-			fmt.Println(val, cchan.Free)
 			cval := val.(st)
 			if cval.num != expected {
 				t.Errorf("Got wrong item %d - expected %d", cval.num, expected)

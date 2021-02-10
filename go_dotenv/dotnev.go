@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// DefaultConf key, value struct
 type DefaultConf struct {
 	Key   string
 	Value string
@@ -18,29 +19,30 @@ func LoadDotenv(defaults ...DefaultConf) bool {
 
 	// Get CWD
 	dpath, err := os.Getwd()
+	ferr := err
 	if err != nil {
-		log.Println(err)
-	}
+		log.Printf("Cannot get CWD")
+	} else {
+		dpath = path.Join(dpath, ".env")
 
-	dpath = path.Join(dpath, ".env")
+		file, ferr := os.Open(dpath)
+		defer file.Close()
 
-	file, ferr := os.Open(dpath)
-	defer file.Close()
+		// Read the file .env if it can be opened
+		if ferr == nil {
+			dfile := bufio.NewReader(file)
 
-	// Read the file .env if it can be opened
-	if ferr == nil {
-		dfile := bufio.NewReader(file)
+			for {
+				line, err := dfile.ReadString('\n')
+				if err != nil {
+					break
+				}
 
-		for {
-			line, err := dfile.ReadString('\n')
-			if err != nil {
-				break
-			}
+				config := strings.Split(line, "=")
 
-			config := strings.Split(line, "=")
-
-			if len(config) == 2 {
-				os.Setenv(strings.ToUpper(strings.TrimSpace(config[0])), strings.TrimSpace(config[1]))
+				if len(config) == 2 {
+					os.Setenv(strings.ToUpper(strings.TrimSpace(config[0])), strings.TrimSpace(config[1]))
+				}
 			}
 		}
 	}

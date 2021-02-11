@@ -6,7 +6,7 @@ import (
 )
 
 func TestLoadDotenv(T *testing.T) {
-	test := DefaultConf{"PASSWORD", "secret"}
+	test := Default{"PASSWORD", "secret"}
 
 	LoadDotenv(test)
 	if os.Getenv("PASSWORD") != "secret" {
@@ -15,7 +15,7 @@ func TestLoadDotenv(T *testing.T) {
 
 	os.Setenv("PASSWORD", "")
 
-	test = DefaultConf{"password", "secret"}
+	test = Default{"password", "secret"}
 
 	LoadDotenv(test)
 	if os.Getenv("PASSWORD") != "secret" {
@@ -24,8 +24,8 @@ func TestLoadDotenv(T *testing.T) {
 
 	os.Setenv("PASSWORD", "")
 
-	test = DefaultConf{"password", "secret"}
-	test2 := DefaultConf{"login", "admin"}
+	test = Default{"password", "secret"}
+	test2 := Default{"login", "admin"}
 
 	LoadDotenv(test, test2)
 	if os.Getenv("LOGIN") != "admin" {

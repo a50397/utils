@@ -26,7 +26,7 @@ import (
     dotnev "github.com/a50397/utils/go_dotenv"
 )
 
-err := dotnev.LoadDotenv(dotnev.DefaultConf{Key: "PASSWORD", Value: "secret"}, dotnev.DefaultConf{Key: "login", Value: "admin"
+err := dotnev.LoadDotenv(dotnev.Default{Key: "PASSWORD", Value: "secret"}, dotnev.Default{Key: "login", Value: "admin"
 )
 
 if err {

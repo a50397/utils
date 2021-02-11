@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-// DefaultConf key, value struct
-type DefaultConf struct {
+// Default key, value struct
+type Default struct {
 	Key   string
 	Value string
 }
 
 // LoadDotenv load .env file in the current directory and if values are not defined, use defaults
-func LoadDotenv(defaults ...DefaultConf) bool {
+func LoadDotenv(defaults ...Default) bool {
 
 	// Get CWD
 	dpath, err := os.Getwd()

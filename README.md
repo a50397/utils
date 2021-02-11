@@ -1,7 +1,7 @@
 # Small utils and snippets
 
 ## Cchannel 
-fixed sized non-blocking buffer implemented using channels. Only last n values will be kept
+fixed-sized buffer implemented using channels. Only last n values will be kept
 ```
 import cchannel "github.com/a50397/utils/cchannel"
 
@@ -15,6 +15,9 @@ if val, valid := cchan.Get(); valid {
     i := val.(itemType)
     ...
 }
+// Blocking read
+x := cchan.GetB()
+
 ```
 
 ## dotenv
